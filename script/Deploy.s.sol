@@ -8,9 +8,9 @@ import { BaseScript } from "./Base.s.sol";
 
 /// @dev See the Solidity Scripting tutorial: https://book.getfoundry.sh/tutorials/solidity-scripting
 contract Deploy is BaseScript {
-    function run() public broadcast returns (PluginResolver pluginResolver) {
-        IExecutablePlugin plugin = IExecutablePlugin(vm.envAddress("TOKEN_ADDRESS"));
+  function run() public broadcast returns (PluginResolver pluginResolver) {
+    IExecutablePlugin plugin = IExecutablePlugin(vm.envAddress("PLUGIN_ADDRESS"));
 
-        pluginResolver = new PluginResolver(plugin);
-    }
+    pluginResolver = new PluginResolver(plugin);
+  }
 }
