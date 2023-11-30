@@ -4,23 +4,28 @@ pragma solidity >=0.8.21;
 import "./PluginResolver.sol";
 
 contract PluginResolverFactory {
+  address public immutable automate;
   // Event to be emitted when a new PluginResolver is created
   event PluginResolverCreated(address indexed creator, address pluginResolver);
 
   // Mapping to store addresses of PluginResolver instances against creator addresses
   mapping(address => address) public pluginResolvers;
 
+  constructor(address _automate) {
+    automate = _automate;
+  }
+
   /**
    * @dev Function to create a new PluginResolver instance
    * @param _plugin Address of the IExecutablePlugin
-   * @param _automate Address for the Automate
    * @return address of the newly created PluginResolver instance
    */
-  function createPluginResolver(IExecutablePlugin _plugin, address _automate) external returns (address) {
+  function createPluginResolver(IExecutablePlugin _plugin, address _fundsOwner) external returns (address) {
     if (pluginResolvers[msg.sender] != address(0)) {
       return pluginResolvers[msg.sender];
     }
-    PluginResolver newPluginResolver = new PluginResolver(_plugin, _automate, msg.sender);
+
+    PluginResolver newPluginResolver = new PluginResolver(_plugin, automate, _fundsOwner);
     pluginResolvers[msg.sender] = address(newPluginResolver);
 
     emit PluginResolverCreated(msg.sender, address(newPluginResolver));
@@ -37,4 +42,3 @@ contract PluginResolverFactory {
     return pluginResolvers[creator];
   }
 }
-
