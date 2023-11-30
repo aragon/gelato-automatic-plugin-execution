@@ -4,10 +4,14 @@ pragma solidity >=0.8.21;
 import { IExecutablePlugin } from "./interfaces/IExecutablePlugin.sol";
 import { AutomateTaskCreator } from "@automate/integrations/AutomateTaskCreator.sol";
 
-contract PluginResolver {
+contract PluginResolver is AutomateTaskCreator {
   IExecutablePlugin public immutable plugin;
 
-  constructor(IExecutablePlugin _plugin) {
+  constructor(
+    IExecutablePlugin _plugin,
+    address _automate,
+    address _fundsOwner
+  ) AutomateTaskCreator(_automate, _fundsOwner) {
     plugin = _plugin;
   }
 
