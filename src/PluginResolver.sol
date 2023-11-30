@@ -13,6 +13,14 @@ contract PluginResolver is AutomateTaskCreator {
     address _fundsOwner
   ) AutomateTaskCreator(_automate, _fundsOwner) {
     plugin = _plugin;
+
+    ModuleData memory moduleData = ModuleData({ modules: new Module[](1), args: new bytes[](1) });
+
+    moduleData.modules[0] = Module.RESOLVER;
+
+    moduleData.args[0] = _resolverModuleArg(address(this), abi.encodeCall(this.checker, ()));
+
+    _createTask(address(_plugin), "", moduleData, 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE);
   }
 
   // This only executes the last proposal
