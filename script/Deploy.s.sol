@@ -10,7 +10,7 @@ import { BaseScript } from "./Base.s.sol";
 /// @dev See the Solidity Scripting tutorial: https://book.getfoundry.sh/tutorials/solidity-scripting
 contract Deploy is BaseScript {
   function run() public broadcast returns (PluginResolverFactory pluginResolverFactory) {
-    address automate = vm.envAddress("GOERLI_AUTOMATE_ADDRES");
+    address automate = vm.envAddress("AUTOMATE");
 
     pluginResolverFactory = new PluginResolverFactory(automate);
   }
