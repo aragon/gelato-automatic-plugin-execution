@@ -5,11 +5,12 @@ import "./PluginResolver.sol";
 
 contract PluginResolverFactory {
   address public immutable automate;
-  // Event to be emitted when a new PluginResolver is created
-  event PluginResolverCreated(address indexed creator, address pluginResolver);
 
   // Mapping to store addresses of PluginResolver instances against creator addresses
   mapping(address => address) public pluginResolvers;
+
+  // Event to be emitted when a new PluginResolver is created
+  event PluginResolverCreated(address indexed creator, address pluginResolver);
 
   constructor(address _automate) {
     automate = _automate;

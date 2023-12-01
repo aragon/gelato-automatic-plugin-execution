@@ -19,7 +19,7 @@ contract PluginResolver is AutomateTaskCreator {
     plugin = _plugin;
   }
 
-  function createTask() external {
+  function createTask() external payable {
     require(taskId == bytes32(""), "Already started task");
 
     ModuleData memory moduleData = ModuleData({ modules: new Module[](1), args: new bytes[](1) });
@@ -39,4 +39,6 @@ contract PluginResolver is AutomateTaskCreator {
     canExec = plugin.canExecute(lastProposal);
     execPayload = abi.encodeCall(IExecutablePlugin.execute, lastProposal);
   }
+
+  receive() external payable {}
 }
